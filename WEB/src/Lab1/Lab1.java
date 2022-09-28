@@ -1,6 +1,8 @@
 package Lab1;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class Lab1 {
@@ -16,14 +18,28 @@ public class Lab1 {
             getAllJavaFiles(file);
         }
 
-
-        Thread.sleep(1200);
+        Thread.sleep(1000);
         System.out.println("\nAll java files that we found in directory:");
         for (File f : javaFiles) {
             System.out.println(f);
         }
 
+        File resultFolder = new File("/Users/apple/Desktop/resultFolder");
+        resultFolder.mkdirs();
+        File resultFile = new File("/Users/apple/Desktop/resultFolder/resultFile.java");
+        resultFile.createNewFile();
 
+
+        FileInputStream input = new FileInputStream(javaFiles.get(0));
+        FileOutputStream output = new FileOutputStream("/Users/apple/Desktop/resultFolder/resultFile.java", true);
+
+        while(input.available() > 0) {
+            int data = input.read();
+            output.write(data);
+        }
+
+        input.close();
+        output.close();
     }
 
     public static void getAllJavaFiles(File file) {
